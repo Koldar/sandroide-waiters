@@ -1,3 +1,7 @@
+SandroidE Waiters
+=================
+
+A working code example for sandroide framework
 
 Introduction
 ============
