@@ -3,7 +3,10 @@ package com.massimobono.sandroide_waiters;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SAndroidEWaiters extends AppCompatActivity {
+import it.unibs.sandroide.lib.activities.SandroideApplication;
+import it.unibs.sandroide.lib.activities.SandroideBaseActivity;
+
+public class SAndroidEWaiters extends SandroideBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

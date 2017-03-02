@@ -54,8 +54,8 @@ As shown in http://stackoverflow.com/a/22604347/1887602, you can't emulate the b
 In order to successfully test the application, you need to use an actual phone. Use it only when you need to actually
 test the bluetooth connection.
 
-Persone contattabili
-====================
+Knowledgable people
+===================
 
 Further information about SAndroidE framework can be fetched from:
  -  Francesco Bonfadelli (gdg brescia);
