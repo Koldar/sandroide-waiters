@@ -8,6 +8,8 @@ Introduction
 
 A SAndroidE official setup procedure can be found at
 https://github.com/SAndroidEOfficial/framework/wiki/Preparing-your-app-for-SAndroidE
+Other useful information:
+https://github.com/SAndroidEOfficial/framework/wiki/Using-RedBear-Nano-with-SAndroidE
 
 How to setup the emulator
 =========================
