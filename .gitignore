@@ -36,6 +36,10 @@ captures/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/libraries
+.idea/misc.xml
+.idea/gradle.xml
+app/app.iml
+
 .externalNativeBuild
 
 # Keystore files
