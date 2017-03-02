@@ -14,3 +14,5 @@ public class SAndroidEWaiters extends SandroideBaseActivity {
         setContentView(R.layout.activity_sandroid_ewaiters);
     }
 }
+
+// prova a random di commit
