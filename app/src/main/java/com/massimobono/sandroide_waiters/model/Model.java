@@ -2,6 +2,7 @@ package com.massimobono.sandroide_waiters.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Representss the whole model of the application of us
@@ -12,7 +13,7 @@ public class Model {
 
     private static Model singleton;
 
-    private Collection<ITable> tables;
+    private List<ITable> tables;
 
     static {
         singleton = null;
@@ -28,13 +29,13 @@ public class Model {
         }
         return singleton;
     }
-
     /**
      *
-     * @return all the tables available in the model
+     * @param position the index of the {@link ITable} we want to fetch
+     * @return the {@link ITable} requested
      */
-    public Collection<ITable> getTables() {
-        return this.tables;
+    public ITable get(int position) {
+        return this.tables.get(position);
     }
 
 }

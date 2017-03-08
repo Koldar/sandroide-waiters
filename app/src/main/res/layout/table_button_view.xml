@@ -9,7 +9,7 @@
     <ImageView
         android:layout_height="match_parent"
         app:srcCompat="@drawable/lightOff"
-        android:id="@+id/imageView"
+        android:id="@+id/buzz_image_onoff"
         android:layout_alignParentBottom="true"
         android:layout_weight="0.7"
         android:layout_width="match_parent" />

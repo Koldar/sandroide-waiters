@@ -16,4 +16,14 @@ public interface ITable {
      * @return a description of a table
      */
     public String getName();
+
+    /**
+     *
+     * @return true if a customer on that table requested a waiter
+     */
+    public boolean isBuzzing();
+
+    public void addTableListener(TableListener tl);
+
+    public void removeTableListener(TableListener tl);
 }

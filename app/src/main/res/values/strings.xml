@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SAndroidE-Waiters</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="table_primary_text">Table No. %3d</string>
 </resources>

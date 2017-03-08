@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         this.tableButtons = (RecyclerView) this.findViewById(R.id.tableButtons);
         this.tableButtons.setHasFixedSize(true);
 
-        this.tableButtonsLayoutManager = new LinearLayoutManager();
+        this.tableButtonsLayoutManager = new LinearLayoutManager(this);
         this.tableButtons.setLayoutManager(this.tableButtonsLayoutManager);
 
         this.tableButtonsAdapter = null;
