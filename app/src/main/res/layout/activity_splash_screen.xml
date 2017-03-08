@@ -14,10 +14,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/button"
         android:id="@+id/splashScreenImage"
         android:layout_above="@+id/splashScreenProgressBar"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        app:srcCompat="@drawable/button" />
 
     <ProgressBar
         style="?android:attr/progressBarStyle"

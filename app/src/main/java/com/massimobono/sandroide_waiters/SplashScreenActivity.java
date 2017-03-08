@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+//FIXME this is actually a bad way to implement a splash screen. The right way is described here: https://www.bignerdranch.com/blog/splash-screens-the-right-way/
 /**
  * This activity handles the loading screen of the application
  */
@@ -41,6 +42,8 @@ public class SplashScreenActivity extends AppCompatActivity {
      * Loads application data and uses a progress bar to show the loading to the user
      *
      * <p>Note: at the moment this functtion loads nothing</p>
+     *
+     * The implementation is based upon <a href="https://developer.android.com/reference/android/os/AsyncTask.html">asynch task</a>
      */
     private void loadApplicationData() {
         new AsyncTask<Integer, Integer, Integer>() {
