@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     //recycle views implementaed has been inspired from https://developer.android.com/training/material/lists-cards.html
     private RecyclerView tableButtons;
     private RecyclerView.Adapter tableButtonsAdapter;
-    private RecyclerView.LayoutManager tableButtonsLayoutManager;
+    private LinearLayoutManager tableButtonsLayoutManager;
 
     private Model model;
 
@@ -32,5 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.tableButtonsAdapter = new TableButtonAdapter(this.model);
         this.tableButtons.setAdapter(this.tableButtonsAdapter);
+
+        //we can use this to scroll to a position when a buzzer rings
+        //Scroll item 2 to 20 pixels from the top
+        //this.tableButtonsLayoutManager.scrollToPositionWithOffset(2, 20);
     }
 }

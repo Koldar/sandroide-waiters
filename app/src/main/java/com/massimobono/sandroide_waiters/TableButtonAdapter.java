@@ -60,9 +60,6 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         ITable table = this.model.getDao().getTable(position);
 
         Log.d(TAG, String.format("binding on %d", position));
-        if (table == null) {
-            return;
-        }
         holder.primaryText.setText(String.format(
                 holder.primaryText.getContext().getString(R.string.table_primary_text),
                 table.getId()
