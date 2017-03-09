@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 
-//TODO maybe Model can implement a collection? just for the lols
 /**
  * Represents the whole model of the application of us
  *
@@ -31,6 +30,12 @@ public class Model {
 
     private Model() {
         this.dao = new RealmDAO();
+
+        //just for the funz we add some tables
+        this.dao.resetDatabase();
+        for (int i=0; i<10; i++ ) {
+            this.dao.addTable(new Table(String.format("tavolo %02d", i)));
+        }
     }
 
     public static Model get() {

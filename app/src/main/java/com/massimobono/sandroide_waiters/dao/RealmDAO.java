@@ -64,4 +64,25 @@ public class RealmDAO implements DAO {
     @Override
     public void close() throws IOException {
     }
+
+    @Override
+    public void removeTable(ITable table) {
+        this.realm.beginTransaction();
+        this.realm
+                .where(RealmTable.class)
+                .equalTo("id", table.getId())
+                .findAll()
+                .deleteAllFromRealm();
+        this.realm.commitTransaction();
+    }
+
+    @Override
+    public void resetDatabase() {
+        this.realm.beginTransaction();
+        this.realm
+                .where(RealmTable.class)
+                .findAll()
+                .deleteAllFromRealm();
+        this.realm.commitTransaction();
+    }
 }

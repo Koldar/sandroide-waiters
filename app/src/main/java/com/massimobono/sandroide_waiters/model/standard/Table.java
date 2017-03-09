@@ -32,11 +32,26 @@ public class Table implements ITable {
      */
     private EventManager<TableListener> listenerManager;
 
+    private static long nextId;
+
+    static {
+        nextId = 0;
+    }
+
     public Table(long id, String name) {
         this.id = id;
         this.name = name;
         this.buzz = false;
         this.listenerManager = new EventManager<>();
+    }
+
+    /**
+     * like {@link #Table(long, String)} but the ID is assigned automatically
+     * @param name the name of the table
+     */
+    public Table(String name) {
+        this(nextId, name);
+        nextId++;
     }
 
     @Override

@@ -10,10 +10,6 @@ import android.widget.TextView;
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.Model;
 
-import org.w3c.dom.Text;
-
-import java.util.Collection;
-
 /**
  * Created by massi on 3/8/2017.
  */
@@ -56,7 +52,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ITable table = this.model.get(position);
+        ITable table = this.model.getDao().getTable(position);
 
         holder.primaryText.setText(String.format(
                 holder.primaryText.getContext().getString(R.string.table_primary_text),
@@ -64,11 +60,11 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         ));
 
         holder.secondayText.setText(table.getName());
-        holder.image.setImageResource(table.isBuzzing() ? R.drawable.lightOn : R.drawable.lightOff);
+        holder.image.setImageResource(table.isBuzzing() ? R.drawable.light_on : R.drawable.light_off);
     }
 
     @Override
     public int getItemCount() {
-        return this.model.size();
+        return (int)this.model.getDao().getTableNumber();
     }
 }

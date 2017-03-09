@@ -49,4 +49,16 @@ public interface DAO extends Closeable{
      * @return all the available {@link ITable} inside the DAO
      */
     public Collection<? extends ITable> getAllTables();
+
+    /**
+     * Removes a table from the permanent storage
+     *
+     * @param table the table to remove
+     */
+    public void removeTable(ITable table);
+
+    /**
+     * Remove <b>all</b> the data inside the database
+     */
+    public void resetDatabase();
 }
