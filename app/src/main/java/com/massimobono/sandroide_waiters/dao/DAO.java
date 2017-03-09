@@ -30,7 +30,7 @@ public interface DAO extends Closeable{
      *
      * @return the total number of {@link ITable} inside the dao
      */
-    public int getTableNumber();
+    public long getTableNumber();
 
     /**
      * Adds a new table inside the DAO
@@ -38,13 +38,15 @@ public interface DAO extends Closeable{
      * <b>Note: we provide only a {@link ITable} parameter bacause in this way we separate concern between table storage and table creation</b>
      *
      * @param table the table to add
+     * @return the {@link ITable} actually added in the database. It is semantically identical to the given one, but it is the one
+     *  that was put in the database. You should use this one during operations.
      */
-    public void addTable(ITable table);
+    public ITable addTable(ITable table);
 
     /**
      * <p>Warning: this operation may return lots of instances! Be careful</p>
      *
      * @return all the available {@link ITable} inside the DAO
      */
-    public Collection<ITable> getAllTables();
+    public Collection<? extends ITable> getAllTables();
 }

@@ -69,4 +69,19 @@ public class RealmTable extends RealmObject implements ITable{
     public void removeTableListener(TableListener tl) {
         this.eventManager.removeListener(tl);
     }
+
+    /**
+     *
+     * @param t the {@link ITable} instance to clone
+     * @return a enw {@link RealmTable} from another {@link ITable} instance
+     */
+    public static RealmTable from(ITable t) {
+        RealmTable retVal = new RealmTable();
+
+        retVal.id = t.getId();
+        retVal.name = t.getName();
+        retVal.buzzing = t.isBuzzing();
+
+        return retVal;
+    }
 }

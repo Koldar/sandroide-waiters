@@ -1,11 +1,13 @@
 package com.massimobono.sandroide_waiters.dao;
 
 import com.massimobono.sandroide_waiters.model.ITable;
+import com.massimobono.sandroide_waiters.model.realm.RealmTable;
 
 import java.io.IOException;
 import java.util.Collection;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Represents a DAo connecting the application with a realm DB
@@ -19,33 +21,47 @@ public class RealmDAO implements DAO {
 
     private Realm realm;
 
+    public RealmDAO() {
+        this.realm = Realm.getDefaultInstance();
+    }
+
     @Override
     public void setup() {
-
     }
 
     @Override
     public ITable getTable(int i) {
-        return null;
+        return this.realm
+                .where(RealmTable.class)
+                .equalTo("id", i)
+                .findFirst();
     }
 
     @Override
-    public int getTableNumber() {
-        return 0;
+    public long getTableNumber() {
+        return this.realm
+                .where(RealmTable.class)
+                .count();
     }
 
     @Override
-    public void addTable(ITable table) {
+    public ITable addTable(ITable table) {
+        RealmTable retVal = RealmTable.from(table);
+        this.realm.beginTransaction();
+        this.realm.insert(retVal);
+        this.realm.commitTransaction();
 
+        return retVal;
     }
 
     @Override
-    public Collection<ITable> getAllTables() {
-        return null;
+    public Collection<? extends ITable> getAllTables() {
+        return this.realm
+                .where(RealmTable.class)
+                .findAll();
     }
 
     @Override
     public void close() throws IOException {
-
     }
 }
