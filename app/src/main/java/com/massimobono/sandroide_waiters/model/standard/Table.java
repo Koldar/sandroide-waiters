@@ -75,6 +75,17 @@ public class Table implements ITable {
     }
 
     @Override
+    public void setBuzzing(boolean buzzing) {
+        for (TableListener tl : this.listenerManager) {
+            if (this.buzz) {
+                tl.onBuzzOn(this);
+            } else {
+                tl.onBuzzOff(this);
+            }
+        }
+    }
+
+    @Override
     public String getPinIdentifier() {
         return this.pinIdentifier;
     }

@@ -1,10 +1,13 @@
 package com.massimobono.sandroide_waiters;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.massimobono.sandroide_waiters.model.ITable;
+import com.massimobono.sandroide_waiters.model.TableListener;
 import com.massimobono.sandroide_waiters.model.realm.RealmDAO;
 import com.massimobono.sandroide_waiters.model.Model;
 
@@ -36,5 +39,27 @@ public class MainActivity extends AppCompatActivity {
         //we can use this to scroll to a position when a buzzer rings
         //Scroll item 2 to 20 pixels from the top
         //this.tableButtonsLayoutManager.scrollToPositionWithOffset(2, 20);
+
+        this.model.getDao().getTable(2).addTableListener(new TableListener() {
+            @Override
+            public void onBuzzOn(ITable table) {
+
+            }
+
+            @Override
+            public void onBuzzOff(ITable table) {
+
+            }
+        });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //simulate behaviour of a customer and a waiter
+                model.getDao().getTable(2).setBuzzing(true);
+            }
+        }, 2000);
+
     }
 }

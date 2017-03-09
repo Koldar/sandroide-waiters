@@ -24,6 +24,12 @@ public interface ITable {
     public boolean isBuzzing();
 
     /**
+     * Set the new value of the buzzer
+     * @param buzzing true if the button is buzzing, false otherwise
+     */
+    public void setBuzzing(boolean buzzing);
+
+    /**
      * for further details, see <a href="https://github.com/SAndroidEOfficial/framework/wiki/Using-RedBear-Nano-with-SAndroidE">here</a>
      *
      * @return the pin identifier of the button layed on the table
