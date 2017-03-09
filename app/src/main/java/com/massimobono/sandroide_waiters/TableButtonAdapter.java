@@ -64,10 +64,11 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         ));
 
         holder.secondayText.setText(table.getName());
+        holder.image.setImageResource(table.isBuzzing() ? R.drawable.lightOn : R.drawable.lightOff);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.model.size();
     }
 }

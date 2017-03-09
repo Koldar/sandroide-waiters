@@ -47,6 +47,13 @@ public class Model {
     }
 
     /**
+     * @return The number of tables inside the model
+     */
+    public int size() {
+        return this.tables.size();
+    }
+
+    /**
      * factory method for a {@link ITable}
      *
      * @param id the unique identifier of the table
