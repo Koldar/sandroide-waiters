@@ -1,5 +1,7 @@
 package com.massimobono.sandroide_waiters.model;
 
+import com.massimobono.sandroide_waiters.dao.DAO;
+import com.massimobono.sandroide_waiters.dao.RealmDAO;
 import com.massimobono.sandroide_waiters.model.standard.Table;
 
 import java.util.ArrayList;
@@ -18,17 +20,17 @@ import java.util.List;
 public class Model {
 
     private static Model singleton;
-
-    private static long staticId;
-    private List<ITable> tables;
+    /**
+     * the object used to fetch all data from application permament storage
+     */
+    private DAO dao;
 
     static {
-        staticId = 0;
         singleton = null;
     }
 
     private Model() {
-        this.tables = new ArrayList<ITable>();
+        this.dao = new RealmDAO();
     }
 
     public static Model get() {
@@ -37,38 +39,9 @@ public class Model {
         }
         return singleton;
     }
-    /**
-     *
-     * @param position the index of the {@link ITable} we want to fetch
-     * @return the {@link ITable} requested
-     */
-    public ITable get(int position) {
-        return this.tables.get(position);
-    }
 
-    /**
-     * @return The number of tables inside the model
-     */
-    public int size() {
-        return this.tables.size();
-    }
-
-    /**
-     * factory method for a {@link ITable}
-     *
-     * @param id the unique identifier of the table
-     * @return a new {@link ITable} instance
-     */
-    public ITable createTable(long id) {
-        return new Table(id, "a normal table");
-    }
-
-    /**
-     * like {@link #createTable(long)}, but it set automatically the id
-     * @return a new {@link ITable} instance
-     */
-    public ITable createTable() {
-        return this.createTable(staticId++);
+    public DAO getDao() {
+        return this.dao;
     }
 
 }

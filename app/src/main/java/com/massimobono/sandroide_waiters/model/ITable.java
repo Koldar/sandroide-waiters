@@ -23,7 +23,17 @@ public interface ITable {
      */
     public boolean isBuzzing();
 
+    /**
+     * Adds a new listener of the table
+     * Adding the same listener twice have no effects
+     * @param tl the listener to add
+     */
     public void addTableListener(TableListener tl);
 
+    /**
+     * Removes a listener of this table
+     * Removing a listener that is currently not listening the {@link ITable} instance have no effects
+     * @param tl the listener to remove
+     */
     public void removeTableListener(TableListener tl);
 }
