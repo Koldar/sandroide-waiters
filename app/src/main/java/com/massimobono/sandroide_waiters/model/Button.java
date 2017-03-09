@@ -10,6 +10,7 @@ public class Button implements Runnable {
         GREY{
             Status nextStep(Button p) {
                 if(pressedStatus) return YELLOW;
+                return GREY;
             }
         },
         YELLOW{
@@ -21,6 +22,7 @@ public class Button implements Runnable {
                 if(timer < TTR) timer++;
                 //time to red
                 else return RED;
+                return YELLOW;
             }
 
         },
@@ -33,6 +35,7 @@ public class Button implements Runnable {
                     taken = false;
                     return GREY;
                 }
+                return RED;
             }
         };
 

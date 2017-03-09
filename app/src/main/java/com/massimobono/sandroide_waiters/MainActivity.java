@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         this.model.getDao().getTable(2).addTableListener(new TableListener() {
             @Override
             public void onBuzzOn(ITable table) {
-
             }
 
             @Override
@@ -58,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //simulate behaviour of a customer and a waiter
                 model.getDao().getTable(2).setBuzzing(true);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                model.getDao().getTable(2).setBuzzing(false);
             }
         }, 2000);
 
