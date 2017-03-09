@@ -1,4 +1,4 @@
-package com.massimobono.sandroide_waiters.dao;
+package com.massimobono.sandroide_waiters.model;
 
 import com.massimobono.sandroide_waiters.model.ITable;
 

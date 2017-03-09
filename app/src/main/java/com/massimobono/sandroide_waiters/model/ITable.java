@@ -24,6 +24,19 @@ public interface ITable {
     public boolean isBuzzing();
 
     /**
+     * for further details, see <a href="https://github.com/SAndroidEOfficial/framework/wiki/Using-RedBear-Nano-with-SAndroidE">here</a>
+     *
+     * @return the pin identifier of the button layed on the table
+     */
+    public String getPinIdentifier();
+
+    /**
+     * Set the new pid identifier of this table
+     * @param pinIdentifier the new pin identifier
+     */
+    public void setPinIdentifier(String pinIdentifier);
+
+    /**
      * Adds a new listener of the table
      * Adding the same listener twice have no effects
      * @param tl the listener to add

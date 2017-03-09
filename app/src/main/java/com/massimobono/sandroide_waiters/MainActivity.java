@@ -1,18 +1,16 @@
 package com.massimobono.sandroide_waiters;
 
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.massimobono.sandroide_waiters.dao.RealmDAO;
+import com.massimobono.sandroide_waiters.model.realm.RealmDAO;
 import com.massimobono.sandroide_waiters.model.Model;
 
 public class MainActivity extends AppCompatActivity {
 
     //recycle views implementaed has been inspired from https://developer.android.com/training/material/lists-cards.html
-
     private RecyclerView tableButtons;
     private RecyclerView.Adapter tableButtonsAdapter;
     private RecyclerView.LayoutManager tableButtonsLayoutManager;

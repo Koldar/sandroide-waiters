@@ -28,6 +28,10 @@ public class Table implements ITable {
      */
     private boolean buzz;
     /**
+     * The string identifying the button
+     */
+    private String pinIdentifier;
+    /**
      * manage the listeners of this instance
      */
     private EventManager<TableListener> listenerManager;
@@ -38,19 +42,20 @@ public class Table implements ITable {
         nextId = 0;
     }
 
-    public Table(long id, String name) {
+    public Table(long id, String name, String pinIdentifier) {
         this.id = id;
         this.name = name;
         this.buzz = false;
+        this.pinIdentifier = pinIdentifier;
         this.listenerManager = new EventManager<>();
     }
 
     /**
-     * like {@link #Table(long, String)} but the ID is assigned automatically
+     * like {@link #Table(long, String, String)} but the ID is assigned automatically
      * @param name the name of the table
      */
-    public Table(String name) {
-        this(nextId, name);
+    public Table(String name, String pinIdentifier) {
+        this(nextId, name, pinIdentifier);
         nextId++;
     }
 
@@ -67,6 +72,16 @@ public class Table implements ITable {
     @Override
     public boolean isBuzzing() {
         return this.buzz;
+    }
+
+    @Override
+    public String getPinIdentifier() {
+        return this.pinIdentifier;
+    }
+
+    @Override
+    public void setPinIdentifier(String pinIdentifier) {
+        this.pinIdentifier = pinIdentifier;
     }
 
     @Override

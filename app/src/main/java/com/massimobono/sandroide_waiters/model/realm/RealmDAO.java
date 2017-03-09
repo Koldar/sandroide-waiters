@@ -1,15 +1,19 @@
-package com.massimobono.sandroide_waiters.dao;
+package com.massimobono.sandroide_waiters.model.realm;
 
 import android.content.Context;
 
+import com.massimobono.sandroide_waiters.model.DAO;
 import com.massimobono.sandroide_waiters.model.ITable;
+import com.massimobono.sandroide_waiters.model.TableListener;
 import com.massimobono.sandroide_waiters.model.realm.RealmTable;
 
 import java.io.IOException;
 import java.util.Collection;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
+import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
+import io.realm.exceptions.RealmMigrationNeededException;
 
 /**
  * Represents a DAo connecting the application with a realm DB
@@ -22,10 +26,26 @@ import io.realm.RealmResults;
 public class RealmDAO implements DAO {
 
     private Realm realm;
+    private static boolean realmInitialized;
+
+    static {
+        realmInitialized = false;
+    }
 
     public RealmDAO(Context context) {
-        Realm.init(context.getApplicationContext());
-        this.realm = Realm.getDefaultInstance();
+        if (!realmInitialized) {
+            Realm.init(context);
+            realmInitialized = true;
+        }
+        //TODO don't always recreate the database from scratch!
+        //see https://github.com/realm/realm-java/issues/3472
+        RealmConfiguration config2 = new RealmConfiguration.Builder()
+                .name("default2")
+                .schemaVersion(3)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        this.realm = Realm.getInstance(config2);
     }
 
     @Override
@@ -49,10 +69,28 @@ public class RealmDAO implements DAO {
 
     @Override
     public ITable addTable(ITable table) {
-        RealmTable retVal = RealmTable.from(table);
+
         this.realm.beginTransaction();
+
+        final RealmTable retVal = this.realm.createObject(RealmTable.class, table.getId());
+        retVal.setName(table.getName());
+        retVal.setBuzzing(table.isBuzzing());
+
         this.realm.insert(retVal);
         this.realm.commitTransaction();
+
+        retVal.addChangeListener(new RealmChangeListener<RealmTable>() {
+            @Override
+            public void onChange(RealmTable element) {
+                for (TableListener tl : element.eventManager) {
+                    if (retVal.isBuzzing()) {
+                        tl.onBuzzOn(retVal);
+                    } else {
+                        tl.onBuzzOff(retVal);
+                    }
+                }
+            }
+        });
 
         return retVal;
     }
@@ -66,6 +104,7 @@ public class RealmDAO implements DAO {
 
     @Override
     public void close() throws IOException {
+        this.realm.close();
     }
 
     @Override

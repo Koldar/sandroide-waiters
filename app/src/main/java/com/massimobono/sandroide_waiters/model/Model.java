@@ -1,12 +1,6 @@
 package com.massimobono.sandroide_waiters.model;
 
-import com.massimobono.sandroide_waiters.dao.DAO;
-import com.massimobono.sandroide_waiters.dao.RealmDAO;
 import com.massimobono.sandroide_waiters.model.standard.Table;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -29,7 +23,7 @@ public class Model {
         //just for the funz we add some tables
         this.dao.resetDatabase();
         for (int i=0; i<10; i++ ) {
-            this.dao.addTable(new Table(String.format("tavolo %02d", i)));
+            this.dao.addTable(new Table(String.format("tavolo %02d", i), "qwertyuiop"));
         }
     }
 

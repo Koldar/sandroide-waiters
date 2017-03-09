@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.ViewHolder> {
 
-    //private static Logger LOG = Logger.getLogger(TableButtonAdapter.class.getSimpleName());
+    private static final String TAG = TableButtonAdapter.class.getSimpleName();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
@@ -51,7 +51,6 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
             - https://stackoverflow.com/questions/8180887/how-to-align-linearlayout-at-the-center-of-its-parent
             - https://stackoverflow.com/questions/13264794/font-size-of-textview-in-android-application-changes-on-changing-font-size-from
          */
-        Log.d("TAG", "onCreateViewHolder");
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.table_button_view, parent, false);
         return new ViewHolder(v);
     }
@@ -60,6 +59,10 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         ITable table = this.model.getDao().getTable(position);
 
+        Log.d(TAG, String.format("binding on %d", position));
+        if (table == null) {
+            return;
+        }
         holder.primaryText.setText(String.format(
                 holder.primaryText.getContext().getString(R.string.table_primary_text),
                 table.getId()
