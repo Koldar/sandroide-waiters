@@ -75,8 +75,16 @@ public class RealmTable extends RealmObject implements ITable {
         return this.buzzing;
     }
 
+    @Override
     public void setBuzzing(boolean buzzing) {
         this.buzzing = buzzing;
+        for (TableListener tl : this.eventManager) {
+            if (this.buzzing) {
+                tl.onBuzzOn(this);
+            } else {
+                tl.onBuzzOff(this);
+            }
+        }
     }
 
     @Override
