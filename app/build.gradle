@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android' //used to explot realm. see https://realm.io/docs/java/latest/#prerequisites
 
 android {
     compileSdkVersion 25

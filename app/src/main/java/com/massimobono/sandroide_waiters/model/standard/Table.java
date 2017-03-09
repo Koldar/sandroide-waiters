@@ -2,6 +2,7 @@ package com.massimobono.sandroide_waiters.model.standard;
 
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.TableListener;
+import com.massimobono.sandroide_waiters.utils.EventManager;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,16 +28,15 @@ public class Table implements ITable {
      */
     private boolean buzz;
     /**
-     * a list of listeners for a particular table.
-     * It is a set to prvevent duplicates
+     * manage the listeners of this instance
      */
-    private Set<TableListener> listeners;
+    private EventManager<TableListener> listenerManager;
 
     public Table(long id, String name) {
         this.id = id;
         this.name = name;
         this.buzz = false;
-        this.listeners = new HashSet<>();
+        this.listenerManager = new EventManager<>();
     }
 
     @Override
@@ -56,11 +56,11 @@ public class Table implements ITable {
 
     @Override
     public void addTableListener(TableListener tl) {
-        this.listeners.add(tl);
+        this.listenerManager.addListener(tl);
     }
 
     @Override
     public void removeTableListener(TableListener tl) {
-        this.listeners.remove(tl);
+        this.listenerManager.removeListener(tl);
     }
 }

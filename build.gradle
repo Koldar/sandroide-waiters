@@ -12,6 +12,16 @@ buildscript {
     }
 }
 
+//used to exploit realm. See https://realm.io/docs/java/latest/#prerequisites
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:3.0.0"
+    }
+}
+
 allprojects {
     repositories {
         jcenter()
