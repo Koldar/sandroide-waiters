@@ -1,6 +1,7 @@
 package com.massimobono.sandroide_waiters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import android.widget.TextView;
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.Model;
 
+import java.util.logging.Logger;
+
 /**
  * Created by massi on 3/8/2017.
  */
 public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.ViewHolder> {
+
+    //private static Logger LOG = Logger.getLogger(TableButtonAdapter.class.getSimpleName());
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
@@ -46,6 +51,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
             - https://stackoverflow.com/questions/8180887/how-to-align-linearlayout-at-the-center-of-its-parent
             - https://stackoverflow.com/questions/13264794/font-size-of-textview-in-android-application-changes-on-changing-font-size-from
          */
+        Log.d("TAG", "onCreateViewHolder");
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.table_button_view, parent, false);
         return new ViewHolder(v);
     }

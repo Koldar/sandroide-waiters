@@ -1,5 +1,7 @@
 package com.massimobono.sandroide_waiters.dao;
 
+import android.content.Context;
+
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.realm.RealmTable;
 
@@ -21,7 +23,8 @@ public class RealmDAO implements DAO {
 
     private Realm realm;
 
-    public RealmDAO() {
+    public RealmDAO(Context context) {
+        Realm.init(context.getApplicationContext());
         this.realm = Realm.getDefaultInstance();
     }
 

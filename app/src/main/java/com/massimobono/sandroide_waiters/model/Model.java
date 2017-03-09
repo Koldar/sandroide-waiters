@@ -12,37 +12,25 @@ import java.util.List;
 /**
  * Represents the whole model of the application of us
  *
- * At the current stage, our model is just a collection of tables
+ * At the current stage, our model contains only the DAO
  *
  * Created by massi on 3/8/2017.
  */
 public class Model {
 
-    private static Model singleton;
     /**
      * the object used to fetch all data from application permament storage
      */
     private DAO dao;
 
-    static {
-        singleton = null;
-    }
-
-    private Model() {
-        this.dao = new RealmDAO();
+    public Model(DAO dao) {
+        this.dao = dao;
 
         //just for the funz we add some tables
         this.dao.resetDatabase();
         for (int i=0; i<10; i++ ) {
             this.dao.addTable(new Table(String.format("tavolo %02d", i)));
         }
-    }
-
-    public static Model get() {
-        if (singleton == null) {
-            singleton = new Model();
-        }
-        return singleton;
     }
 
     public DAO getDao() {
