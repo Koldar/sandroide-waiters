@@ -40,8 +40,8 @@ public class RealmTable extends RealmObject implements ITable {
 
     @Ignore
     /*default*/ EventManager<TableListener> eventManager;
-    @Ignore
-    private BLEGeneralIO virtualButton;
+    //@Ignore
+    //private BLEGeneralIO virtualButton;
     @Ignore
     private boolean buzzing;
 
