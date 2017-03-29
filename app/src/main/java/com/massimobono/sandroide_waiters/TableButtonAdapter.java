@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.massimobono.sandroide_waiters.model.ButtonImageManager;
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.Model;
 
@@ -25,6 +26,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         public ImageView image;
         public TextView primaryText;
         public TextView secondayText;
+        private ButtonImageManager buttonImageManager;
 
         public ViewHolder(View v) {
             super(v);
@@ -32,6 +34,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
             this.image = (ImageView) v.findViewById(R.id.buzz_image_onoff);
             this.primaryText = (TextView) v.findViewById(R.id.primaryText);
             this.secondayText = (TextView) v.findViewById(R.id.secondaryText);
+            this.buttonImageManager = new ButtonImageManager(this.image);
         }
     }
 
@@ -66,7 +69,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         ));
 
         holder.secondayText.setText(table.getName());
-        holder.image.setImageResource(table.isBuzzing() ? R.drawable.light_on : R.drawable.light_off);
+        table.addTableListener(holder.buttonImageManager);
     }
 
     @Override

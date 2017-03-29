@@ -8,14 +8,14 @@ package com.massimobono.sandroide_waiters.model;
 public interface TableListener {
 
     /**
-     * Called when someone presses the buzz
+     * Called when the button is pressed
      *
      * @param table the table that generated this event
      */
     public void onBuzzOn(ITable table);
 
     /**
-     * Called when someone turned off the buzz
+     * Called when the button is not pressed anymore
      *
      * @param table the table that generated this event
      */

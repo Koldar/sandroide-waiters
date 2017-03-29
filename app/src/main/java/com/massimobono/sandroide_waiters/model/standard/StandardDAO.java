@@ -34,6 +34,16 @@ public class StandardDAO implements DAO {
     }
 
     @Override
+    public ITable getTableFromButtonPin(int i) {
+        for (ITable t: this.tables.values()) {
+            if (t.getButtonPin() == i) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public long getTableNumber() {
         return this.tables.size();
     }

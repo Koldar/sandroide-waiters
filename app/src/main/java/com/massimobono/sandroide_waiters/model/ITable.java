@@ -55,7 +55,7 @@ public interface ITable {
      *
      * @return an instance allowing you to communicate with the physical button
      */
-    public BLEGeneralIO getPhysicalButton();
+    public FakeBLEGeneralIO getPhysicalButton();
 
     /**
      * Adds a new listener of the table

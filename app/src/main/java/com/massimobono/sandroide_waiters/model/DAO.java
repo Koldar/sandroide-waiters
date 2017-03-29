@@ -22,9 +22,15 @@ public interface DAO extends Closeable{
     /**
      *
      * @param i the position of the element we need to fetch
-     * @return the i-th {@link ITable} inside the DAO
+     * @return the i-th {@link ITable} inside the DAO or null if it can't be found
      */
     public ITable getTable(int i);
+
+    /**
+     * @param i the pin the button has been cable to
+     * @return the {@link ITable} inside the DAO or null if it can't be found
+     */
+    public ITable getTableFromButtonPin(int i);
 
     /**
      *
