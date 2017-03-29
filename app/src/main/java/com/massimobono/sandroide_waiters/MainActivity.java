@@ -35,10 +35,6 @@ public class MainActivity extends SandroideBaseActivity{
     private RecyclerView.Adapter tableButtonsAdapter;
     private LinearLayoutManager tableButtonsLayoutManager;
 
-    //SandroidE buttons
-    private BLEGeneralIO nanoButton;
-
-
     private Model model;
 
     @Override
@@ -48,11 +44,6 @@ public class MainActivity extends SandroideBaseActivity{
 
         //create the model
         this.model = new Model(new StandardDAO());
-
-        //add the listener everywhere
-        for (ITable t : this.model.getDao().getAllTables()) {
-            t.addTableListener(this);
-        }
 
         this.tableButtons = (RecyclerView) this.findViewById(R.id.tableButtons);
         this.tableButtons.setHasFixedSize(true);
