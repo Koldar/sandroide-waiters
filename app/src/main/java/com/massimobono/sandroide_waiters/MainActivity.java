@@ -13,6 +13,7 @@ import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.TableListener;
 import com.massimobono.sandroide_waiters.model.realm.RealmDAO;
 import com.massimobono.sandroide_waiters.model.Model;
+import com.massimobono.sandroide_waiters.model.standard.StandardDAO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +49,7 @@ public class MainActivity extends SandroideBaseActivity {
         setContentView(R.layout.activity_main);
 
         this.toggleLED = (Button) this.findViewById(R.id.button);
-        this.model = new Model(new RealmDAO(this));
+        this.model = new Model(new StandardDAO());
 
         this.tableButtons = (RecyclerView) this.findViewById(R.id.tableButtons);
         this.tableButtons.setHasFixedSize(true);

@@ -2,11 +2,16 @@ package com.massimobono.sandroide_waiters.model.standard;
 
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.TableListener;
+import com.massimobono.sandroide_waiters.model.TableState;
 import com.massimobono.sandroide_waiters.utils.EventManager;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import io.realm.RealmObjectSchema;
+import it.unibs.sandroide.lib.BLEContext;
+import it.unibs.sandroide.lib.item.generalIO.BLEGeneralIO;
 
 /**
  * A standard implementation of what a table actually is
@@ -14,6 +19,8 @@ import java.util.Set;
  * Created by massi on 3/8/2017.
  */
 public class Table implements ITable {
+
+
 
     /**
      * The id of the table
@@ -24,13 +31,19 @@ public class Table implements ITable {
      */
     private String name;
     /**
-     * true if the buzz is on, false off
+     * the pin where the button is positioned
      */
-    private boolean buzz;
+    private int buttonPin;
     /**
-     * The string identifying the button
+     * The state of the table
      */
-    private String pinIdentifier;
+    private TableState state;
+    /**
+     * The physical button
+     *
+     * Created <b>on demand</b>
+     */
+    private BLEGeneralIO physicalButton;
     /**
      * manage the listeners of this instance
      */
@@ -42,20 +55,20 @@ public class Table implements ITable {
         nextId = 0;
     }
 
-    public Table(long id, String name, String pinIdentifier) {
+    public Table(long id, String name, int buttonPin) {
         this.id = id;
         this.name = name;
-        this.buzz = false;
-        this.pinIdentifier = pinIdentifier;
+        this.state = TableState.OFF;
+        this.buttonPin = buttonPin;
         this.listenerManager = new EventManager<>();
     }
 
     /**
-     * like {@link #Table(long, String, String)} but the ID is assigned automatically
+     * like {@link #Table(long, String, int)} but the ID is assigned automatically
      * @param name the name of the table
      */
-    public Table(String name, String pinIdentifier) {
-        this(nextId, name, pinIdentifier);
+    public Table(String name, int buttonPin) {
+        this(nextId, name, buttonPin);
         nextId++;
     }
 
@@ -70,29 +83,59 @@ public class Table implements ITable {
     }
 
     @Override
-    public boolean isBuzzing() {
-        return this.buzz;
+    public TableState getStatus() {
+        return this.state;
     }
 
     @Override
-    public void setBuzzing(boolean buzzing) {
-        for (TableListener tl : this.listenerManager) {
-            if (this.buzz) {
-                tl.onBuzzOn(this);
-            } else {
-                tl.onBuzzOff(this);
+    public void setStatus(TableState state) {
+        TableState oldState = this.state;
+        this.state = state;
+        if (this.state != oldState) {
+            for (TableListener tl : this.listenerManager) {
+                switch (this.state) {
+                    case OFF:
+                        tl.onTableOff(oldState, this);
+                        break;
+                    case WAITER_NEEDED:
+                        tl.onTableWaiterNeeded(oldState, this);
+                        break;
+                    case WAITER_STILL_NEEDED:
+                        tl.onTableWaiterStillNeeded(oldState, this);
+                        break;
+                    case RESOLVING:
+                        tl.onTableResolving(oldState, this);
+                        break;
+                    case RESOLVED:
+                        tl.onTableResolved(oldState, this);
+                        break;
+                }
             }
         }
     }
 
     @Override
-    public String getPinIdentifier() {
-        return this.pinIdentifier;
+    public int getButtonPin() {
+        return this.buttonPin;
     }
 
     @Override
-    public void setPinIdentifier(String pinIdentifier) {
-        this.pinIdentifier = pinIdentifier;
+    public void setButtonPin(int buttonPin) {
+        this.buttonPin = buttonPin;
+        this.physicalButton = null;
+    }
+
+    @Override
+    public String getPinIdentifier() {
+        return String.format(PIN_IDENTIFIER_TEMPLATE, this.buttonPin);
+    }
+
+    @Override
+    public BLEGeneralIO getPhysicalButton() {
+        if (this.physicalButton == null) {
+            this.physicalButton = (BLEGeneralIO) BLEContext.findViewById(this.getPinIdentifier());
+        }
+        return this.physicalButton;
     }
 
     @Override
