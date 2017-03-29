@@ -1,6 +1,7 @@
 package com.massimobono.sandroide_waiters.model;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.massimobono.sandroide_waiters.R;
 import com.massimobono.sandroide_waiters.TableButtonAdapter;

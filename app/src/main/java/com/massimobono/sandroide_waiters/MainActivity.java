@@ -1,20 +1,23 @@
 package com.massimobono.sandroide_waiters;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.Model;
+import com.massimobono.sandroide_waiters.model.TableListener;
+import com.massimobono.sandroide_waiters.model.TableState;
 import com.massimobono.sandroide_waiters.model.standard.StandardDAO;
 import com.massimobono.sandroide_waiters.model.standard.Table;
 
 import it.unibs.sandroide.lib.activities.SandroideBaseActivity;
-import it.unibs.sandroide.lib.item.generalIO.BLEGeneralIO;
-import it.unibs.sandroide.lib.item.generalIO.BLEGeneralIOEvent;
-import it.unibs.sandroide.lib.item.generalIO.BLEOnGeneralIOEventListener;
 
-public class MainActivity extends SandroideBaseActivity{
+public class MainActivity extends SandroideBaseActivity implements TableListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -33,6 +36,10 @@ public class MainActivity extends SandroideBaseActivity{
         //create the model
         this.model = new Model(new StandardDAO());
 
+        for (ITable t : this.model.getDao().getAllTables()) {
+            t.addTableListener(this);
+        }
+
         this.tableButtons = (RecyclerView) this.findViewById(R.id.tableButtons);
         this.tableButtons.setHasFixedSize(true);
 
@@ -41,10 +48,6 @@ public class MainActivity extends SandroideBaseActivity{
 
         this.tableButtonsAdapter = new TableButtonAdapter(this.model);
         this.tableButtons.setAdapter(this.tableButtonsAdapter);
-
-        //we can use this to scroll to a position when a buzzer rings
-        //Scroll item 2 to 20 pixels from the top
-        //this.tableButtonsLayoutManager.scrollToPositionWithOffset(2, 20);
 
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
@@ -59,6 +62,43 @@ public class MainActivity extends SandroideBaseActivity{
                 }, 2000);
             }
         }, 2000);
+
+    }
+
+    @Override
+    public void onBuzzOn(ITable table) {
+
+    }
+
+    @Override
+    public void onBuzzOff(ITable table) {
+
+    }
+
+    @Override
+    public void onTableOff(TableState oldState, ITable table) {
+
+    }
+
+    @Override
+    public void onTableWaiterNeeded(TableState oldState, ITable table) {
+        Toast.makeText(this, String.format(this.getString(R.string.table_request_help), table.getName()), Toast.LENGTH_SHORT).show();
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(500); // Vibrate for 500 milliseconds
+    }
+
+    @Override
+    public void onTableWaiterStillNeeded(TableState oldState, ITable table) {
+
+    }
+
+    @Override
+    public void onTableResolving(TableState oldState, ITable table) {
+
+    }
+
+    @Override
+    public void onTableResolved(TableState oldState, ITable table) {
 
     }
 }
