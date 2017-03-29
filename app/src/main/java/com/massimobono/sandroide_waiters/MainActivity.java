@@ -5,22 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
-import com.massimobono.sandroide_waiters.model.ITable;
-import com.massimobono.sandroide_waiters.model.TableListener;
-import com.massimobono.sandroide_waiters.model.TableState;
-import com.massimobono.sandroide_waiters.model.realm.RealmDAO;
 import com.massimobono.sandroide_waiters.model.Model;
 import com.massimobono.sandroide_waiters.model.standard.StandardDAO;
+import com.massimobono.sandroide_waiters.model.standard.Table;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
-import it.unibs.sandroide.lib.BLEContext;
 import it.unibs.sandroide.lib.activities.SandroideBaseActivity;
 import it.unibs.sandroide.lib.item.generalIO.BLEGeneralIO;
 import it.unibs.sandroide.lib.item.generalIO.BLEGeneralIOEvent;
@@ -57,6 +45,20 @@ public class MainActivity extends SandroideBaseActivity{
         //we can use this to scroll to a position when a buzzer rings
         //Scroll item 2 to 20 pixels from the top
         //this.tableButtonsLayoutManager.scrollToPositionWithOffset(2, 20);
+
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ((Table)model.getDao().getTable(3)).getPhysicalButton().pressButton();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((Table)model.getDao().getTable(3)).getPhysicalButton().unPressButton();
+                    }
+                }, 2000);
+            }
+        }, 2000);
 
     }
 }

@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.massimobono.sandroide_waiters.model.ButtonImageManager;
+import com.massimobono.sandroide_waiters.model.ButtonStateManager;
 import com.massimobono.sandroide_waiters.model.ITable;
 import com.massimobono.sandroide_waiters.model.Model;
-
-import java.util.logging.Logger;
+import com.massimobono.sandroide_waiters.model.TableState;
 
 /**
  * Created by massi on 3/8/2017.
@@ -22,19 +21,26 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
     private static final String TAG = TableButtonAdapter.class.getSimpleName();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private View view;
         public ImageView image;
         public TextView primaryText;
         public TextView secondayText;
-        private ButtonImageManager buttonImageManager;
+        public ButtonStateManager buttonImageManager;
 
         public ViewHolder(View v) {
             super(v);
-            this.view = v;
             this.image = (ImageView) v.findViewById(R.id.buzz_image_onoff);
             this.primaryText = (TextView) v.findViewById(R.id.primaryText);
             this.secondayText = (TextView) v.findViewById(R.id.secondaryText);
-            this.buttonImageManager = new ButtonImageManager(this.image);
+            this.buttonImageManager = null;
+        }
+
+        public void setImage(final int resourceId) {
+            this.itemView.post(new Runnable() {
+                @Override
+                public void run() {
+                    image.setImageResource(resourceId);
+                }
+            });
         }
     }
 
@@ -60,7 +66,7 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ITable table = this.model.getDao().getTable(position);
+        final ITable table = this.model.getDao().getTable(position);
 
         Log.d(TAG, String.format("binding on %d", position));
         holder.primaryText.setText(String.format(
@@ -69,7 +75,14 @@ public class TableButtonAdapter extends RecyclerView.Adapter<TableButtonAdapter.
         ));
 
         holder.secondayText.setText(table.getName());
+        holder.buttonImageManager = new ButtonStateManager(table, holder);
         table.addTableListener(holder.buttonImageManager);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                table.setStatus(TableState.RESOLVED);
+            }
+        });
     }
 
     @Override

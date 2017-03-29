@@ -155,7 +155,7 @@ public class Table implements ITable {
 
                 @Override
                 public void onAnalogValueChanged(BLEGeneralIOEvent bleGeneralIOEvent) {
-                    Log.i(TAG, "onAnalogValueChanged");
+                    Log.i(TAG, "onAnalogValueChanged " + bleGeneralIOEvent.values[1]);
                     //values[1] 96 if button is not pressed; 0.02 if the button is pressed
                     boolean pressed = bleGeneralIOEvent.values[1] < 50;
 
