@@ -55,10 +55,3 @@ https://github.com/SAndroidEOfficial/framework/wiki/Preparing-your-app-for-SAndr
 As shown in http://stackoverflow.com/a/22604347/1887602, you can't emulate the bluetooth device.
 In order to successfully test the application, you need to use an actual phone. Use it only when you need to actually
 test the bluetooth connection.
-
-Knowledgable people
-===================
-
-Further information about SAndroidE framework can be fetched from:
- -  Francesco Bonfadelli (gdg brescia);
- -  Giovanni;
